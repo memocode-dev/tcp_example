@@ -3,7 +3,6 @@ package dev.memocode.tcp2;
 import com.ghgande.j2mod.modbus.io.ModbusTCPTransaction;
 import com.ghgande.j2mod.modbus.msg.ReadMultipleRegistersRequest;
 import com.ghgande.j2mod.modbus.msg.ReadMultipleRegistersResponse;
-import com.ghgande.j2mod.modbus.msg.WriteMultipleRegistersRequest;
 import com.ghgande.j2mod.modbus.msg.WriteSingleRegisterRequest;
 import com.ghgande.j2mod.modbus.net.TCPMasterConnection;
 import com.ghgande.j2mod.modbus.procimg.SimpleRegister;
@@ -68,36 +67,19 @@ public class TestConfig {
             connection.setPort(port);
             connection.connect();
 
-//            // 2. Create a request to write a value to a single register
-//            int registerAddress = 0; // PLC의 Modbus 레지스터 주소 (예: 1번 방이 레지스터 0번)
-//            int valueToWrite = 1; // PLC에 쓰고자 하는 값
-//            WriteSingleRegisterRequest request = new WriteSingleRegisterRequest(registerAddress, new SimpleRegister(valueToWrite));
-//            request.setUnitID(unitId); // Modbus Unit ID 설정
-            // 3. Create request (하나의 레지스터만 쓰도록 배열로 설정)
-
-            // 2. PLC D02000 -> Modbus 레지스터 2000 변환
-            int registerAddress = 50; // PLC의 Modbus 레지스터 주소 (D02000)
-            int valueToWrite = 1; // 쓰고자 하는 값
-
-            SimpleRegister[] registers = { new SimpleRegister(50), new SimpleRegister(51) }; // 배열에 하나의 값만 담음
-            WriteMultipleRegistersRequest request = new WriteMultipleRegistersRequest(registerAddress, registers);
+            // 2. Create a request to write a value to a single register
+            int registerAddress = 1000; // PLC의 Modbus 레지스터 주소 (예: 1번 방이 레지스터 0번)
+            int valueToWrite = 1; // PLC에 쓰고자 하는 값
+            WriteSingleRegisterRequest request = new WriteSingleRegisterRequest(registerAddress, new SimpleRegister(valueToWrite));
             request.setUnitID(unitId); // Modbus Unit ID 설정
 
-            // 4. Execute transaction
+            // 3. Create and execute the transaction
             transaction = new ModbusTCPTransaction(connection);
             transaction.setRequest(request);
             transaction.execute();
 
-            // 5. Log successful write
+            // 4. Log successful write
             System.out.println("Successfully wrote value " + valueToWrite + " to register " + registerAddress);
-
-//            // 3. Create and execute the transaction
-//            transaction = new ModbusTCPTransaction(connection);
-//            transaction.setRequest(request);
-//            transaction.execute();
-//
-//            // 4. Log successful write
-//            System.out.println("Successfully wrote value " + valueToWrite + " to register " + registerAddress);
 
         } catch (Exception e) {
             e.printStackTrace();
