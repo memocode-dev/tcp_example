@@ -77,9 +77,9 @@ public class TestConfig {
 
             // 2. PLC D02000 -> Modbus 레지스터 2000 변환
             int registerAddress = 50; // PLC의 Modbus 레지스터 주소 (D02000)
-            int valueToWrite = 0; // 쓰고자 하는 값
+            int valueToWrite = 1; // 쓰고자 하는 값
 
-            SimpleRegister[] registers = { new SimpleRegister(valueToWrite) }; // 배열에 하나의 값만 담음
+            SimpleRegister[] registers = { new SimpleRegister(50), new SimpleRegister(51) }; // 배열에 하나의 값만 담음
             WriteMultipleRegistersRequest request = new WriteMultipleRegistersRequest(registerAddress, registers);
             request.setUnitID(unitId); // Modbus Unit ID 설정
 
