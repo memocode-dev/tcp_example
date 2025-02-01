@@ -57,7 +57,7 @@ public class TestConfig {
         TCPMasterConnection connection = null; // Modbus TCP connection
         ModbusTCPTransaction transaction = null; // Modbus TCP transaction
         int unitId = 1; // Modbus Slave Unit ID (1 by default)
-        String modbusHost = "172.30.1.100"; // Modbus server IP
+        String modbusHost = "192.168.50.9"; // Modbus server IP
         int port = 502; // Modbus TCP port
 
         try {
