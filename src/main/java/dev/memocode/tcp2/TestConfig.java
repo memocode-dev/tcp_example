@@ -69,7 +69,7 @@ public class TestConfig {
 
             // 2. Create a request to write a value to a single register
             int registerAddress = 1000; // PLC의 Modbus 레지스터 주소 (예: 1번 방이 레지스터 0번)
-            int valueToWrite = 1; // PLC에 쓰고자 하는 값
+            int valueToWrite = 0; // PLC에 쓰고자 하는 값
             WriteSingleRegisterRequest request = new WriteSingleRegisterRequest(registerAddress, new SimpleRegister(valueToWrite));
             request.setUnitID(unitId); // Modbus Unit ID 설정
 
