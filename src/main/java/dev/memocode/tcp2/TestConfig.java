@@ -57,7 +57,7 @@ public class TestConfig {
         TCPMasterConnection connection = null; // Modbus TCP connection
         ModbusTCPTransaction transaction = null; // Modbus TCP transaction
         int unitId = 1; // Modbus Slave Unit ID (1 by default)
-        String modbusHost = "192.168.50.9"; // Modbus server IP
+        String modbusHost = "172.30.1.100"; // Modbus server IP
         int port = 502; // Modbus TCP port
 
         try {
@@ -69,7 +69,7 @@ public class TestConfig {
 
             // 2. Create a request to write a value to a single register
             int registerAddress = 1000; // PLC의 Modbus 레지스터 주소 (예: 1번 방이 레지스터 0번)
-            int valueToWrite = 1; // PLC에 쓰고자 하는 값
+            int valueToWrite = 0; // PLC에 쓰고자 하는 값
             WriteSingleRegisterRequest request = new WriteSingleRegisterRequest(registerAddress, new SimpleRegister(valueToWrite));
             request.setUnitID(unitId); // Modbus Unit ID 설정
 
