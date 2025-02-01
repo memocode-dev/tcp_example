@@ -30,7 +30,7 @@ public class TestConfig {
                 connection.connect();
 
                 // 2. Create a request to read the register at "1번 방"
-                int startAddress = 31; // 1번 방이 레지스터 0번에 해당한다고 가정
+                int startAddress = 32; // 1번 방이 레지스터 0번에 해당한다고 가정
                 int quantity = 1; // 1개의 레지스터만 읽기
                 ReadMultipleRegistersRequest request = new ReadMultipleRegistersRequest(startAddress, quantity);
                 request.setUnitID(unitId);
