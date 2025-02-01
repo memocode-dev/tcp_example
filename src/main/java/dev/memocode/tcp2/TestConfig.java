@@ -3,7 +3,9 @@ package dev.memocode.tcp2;
 import com.ghgande.j2mod.modbus.io.ModbusTCPTransaction;
 import com.ghgande.j2mod.modbus.msg.ReadMultipleRegistersRequest;
 import com.ghgande.j2mod.modbus.msg.ReadMultipleRegistersResponse;
+import com.ghgande.j2mod.modbus.msg.WriteSingleRegisterRequest;
 import com.ghgande.j2mod.modbus.net.TCPMasterConnection;
+import com.ghgande.j2mod.modbus.procimg.SimpleRegister;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,77 +18,77 @@ public class TestConfig {
     @Bean
     public ApplicationRunner applicationRunner() {
         return args -> {
-            TCPMasterConnection connection = null; // Modbus TCP connection
-            ModbusTCPTransaction transaction = null; // Modbus TCP transaction
-            int unitId = 1; // Modbus Slave Unit ID (1 by default)
-            String modbusHost = "192.168.50.9"; // Modbus server IP
-            int port = 502; // Modbus TCP port
-
-            try {
-                // 1. Connect to the Modbus TCP server
-                InetAddress address = InetAddress.getByName(modbusHost);
-                connection = new TCPMasterConnection(address);
-                connection.setPort(port);
-                connection.connect();
-
-                // 2. Create a request to read the register at "1번 방"
-                int startAddress = 37; // 1번 방이 레지스터 0번에 해당한다고 가정
-                int quantity = 1; // 1개의 레지스터만 읽기
-                ReadMultipleRegistersRequest request = new ReadMultipleRegistersRequest(startAddress, quantity);
-                request.setUnitID(unitId);
-
-                // 3. Create and execute the transaction
-                transaction = new ModbusTCPTransaction(connection);
-                transaction.setRequest(request);
-                transaction.execute();
-
-                // 4. Process the response
-                ReadMultipleRegistersResponse response = (ReadMultipleRegistersResponse) transaction.getResponse();
-                System.out.println("Value in Register " + startAddress + ": " + response.getRegisterValue(0));
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                // Close the connection
-                if (connection != null && connection.isConnected()) {
-                    connection.close();
-                }
-            }
-//        TCPMasterConnection connection = null; // Modbus TCP connection
-//        ModbusTCPTransaction transaction = null; // Modbus TCP transaction
-//        int unitId = 1; // Modbus Slave Unit ID (1 by default)
-//        String modbusHost = "172.30.1.100"; // Modbus server IP
-//        int port = 502; // Modbus TCP port
+//            TCPMasterConnection connection = null; // Modbus TCP connection
+//            ModbusTCPTransaction transaction = null; // Modbus TCP transaction
+//            int unitId = 1; // Modbus Slave Unit ID (1 by default)
+//            String modbusHost = "192.168.50.9"; // Modbus server IP
+//            int port = 502; // Modbus TCP port
 //
-//        try {
-//            // 1. Connect to the Modbus TCP server
-//            InetAddress address = InetAddress.getByName(modbusHost);
-//            connection = new TCPMasterConnection(address);
-//            connection.setPort(port);
-//            connection.connect();
+//            try {
+//                // 1. Connect to the Modbus TCP server
+//                InetAddress address = InetAddress.getByName(modbusHost);
+//                connection = new TCPMasterConnection(address);
+//                connection.setPort(port);
+//                connection.connect();
 //
-//            // 2. Create a request to write a value to a single register
-//            int registerAddress = 1; // PLC의 Modbus 레지스터 주소 (예: 1번 방이 레지스터 0번)
-//            int valueToWrite = 1234; // PLC에 쓰고자 하는 값
-//            WriteSingleRegisterRequest request = new WriteSingleRegisterRequest(registerAddress, new SimpleRegister(valueToWrite));
-//            request.setUnitID(unitId); // Modbus Unit ID 설정
+//                // 2. Create a request to read the register at "1번 방"
+//                int startAddress = 38; // 1번 방이 레지스터 0번에 해당한다고 가정
+//                int quantity = 1; // 1개의 레지스터만 읽기
+//                ReadMultipleRegistersRequest request = new ReadMultipleRegistersRequest(startAddress, quantity);
+//                request.setUnitID(unitId);
 //
-//            // 3. Create and execute the transaction
-//            transaction = new ModbusTCPTransaction(connection);
-//            transaction.setRequest(request);
-//            transaction.execute();
+//                // 3. Create and execute the transaction
+//                transaction = new ModbusTCPTransaction(connection);
+//                transaction.setRequest(request);
+//                transaction.execute();
 //
-//            // 4. Log successful write
-//            System.out.println("Successfully wrote value " + valueToWrite + " to register " + registerAddress);
+//                // 4. Process the response
+//                ReadMultipleRegistersResponse response = (ReadMultipleRegistersResponse) transaction.getResponse();
+//                System.out.println("Value in Register " + startAddress + ": " + response.getRegisterValue(0));
 //
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            // Close the connection
-//            if (connection != null && connection.isConnected()) {
-//                connection.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                // Close the connection
+//                if (connection != null && connection.isConnected()) {
+//                    connection.close();
+//                }
 //            }
-//        }
+        TCPMasterConnection connection = null; // Modbus TCP connection
+        ModbusTCPTransaction transaction = null; // Modbus TCP transaction
+        int unitId = 1; // Modbus Slave Unit ID (1 by default)
+        String modbusHost = "172.30.1.100"; // Modbus server IP
+        int port = 502; // Modbus TCP port
+
+        try {
+            // 1. Connect to the Modbus TCP server
+            InetAddress address = InetAddress.getByName(modbusHost);
+            connection = new TCPMasterConnection(address);
+            connection.setPort(port);
+            connection.connect();
+
+            // 2. Create a request to write a value to a single register
+            int registerAddress = 0; // PLC의 Modbus 레지스터 주소 (예: 1번 방이 레지스터 0번)
+            int valueToWrite = 1; // PLC에 쓰고자 하는 값
+            WriteSingleRegisterRequest request = new WriteSingleRegisterRequest(registerAddress, new SimpleRegister(valueToWrite));
+            request.setUnitID(unitId); // Modbus Unit ID 설정
+
+            // 3. Create and execute the transaction
+            transaction = new ModbusTCPTransaction(connection);
+            transaction.setRequest(request);
+            transaction.execute();
+
+            // 4. Log successful write
+            System.out.println("Successfully wrote value " + valueToWrite + " to register " + registerAddress);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the connection
+            if (connection != null && connection.isConnected()) {
+                connection.close();
+            }
+        }
 //        TCPMasterConnection connection = null; // Modbus TCP connection
 //        ModbusTCPTransaction transaction = null; // Modbus TCP transaction
 //        int unitId = 1; // Modbus Slave Unit ID
