@@ -76,7 +76,7 @@ public class TestConfig {
             // 3. Create request (하나의 레지스터만 쓰도록 배열로 설정)
 
             // 2. PLC D02000 -> Modbus 레지스터 2000 변환
-            int registerAddress = 0; // PLC의 Modbus 레지스터 주소 (D02000)
+            int registerAddress = 50; // PLC의 Modbus 레지스터 주소 (D02000)
             int valueToWrite = 1; // 쓰고자 하는 값
 
             SimpleRegister[] registers = { new SimpleRegister(valueToWrite) }; // 배열에 하나의 값만 담음
@@ -91,13 +91,13 @@ public class TestConfig {
             // 5. Log successful write
             System.out.println("Successfully wrote value " + valueToWrite + " to register " + registerAddress);
 
-            // 3. Create and execute the transaction
-            transaction = new ModbusTCPTransaction(connection);
-            transaction.setRequest(request);
-            transaction.execute();
-
-            // 4. Log successful write
-            System.out.println("Successfully wrote value " + valueToWrite + " to register " + registerAddress);
+//            // 3. Create and execute the transaction
+//            transaction = new ModbusTCPTransaction(connection);
+//            transaction.setRequest(request);
+//            transaction.execute();
+//
+//            // 4. Log successful write
+//            System.out.println("Successfully wrote value " + valueToWrite + " to register " + registerAddress);
 
         } catch (Exception e) {
             e.printStackTrace();
